@@ -1,5 +1,3 @@
-function random(limit) {
-  return Math.floor(Math.random() * limit);
-}
+const safeHTML = (html) => ({ __html: html });
 
-export { random };
+export { safeHTML };

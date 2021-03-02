@@ -8,6 +8,6 @@ describe('DarkMode Testing', () => {
   it('selects an element using the text content', () => {
     const { getByText } = render(<DarkModeToggle />);
 
-    expect(getByText('Dark Mode').tagName).toBe('DIV');
+    expect(getByText('Dark Mode').tagName).toBeInTheDocument();
   });
 });

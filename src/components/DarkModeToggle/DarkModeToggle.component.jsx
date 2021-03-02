@@ -1,10 +1,11 @@
 import React from 'react';
 
-import { Container, ToggleOffIcon } from './DarkModeToggle.styled';
+import { Container, ToggleOffIcon, ToggleOnIcon } from './DarkModeToggle.styled';
 
-const DarkModeToggle = () => {
-  // Later update the icon depends on the darkmode on/off state.
-  const getIcon = () => <ToggleOffIcon />;
+const DarkModeToggle = ({ isDarkModeOn, toggleDarkMode }) => {
+  const darkModeHandler = (event) => toggleDarkMode();
+
+  const getIcon = () => isDarkModeOn ? <ToggleOnIcon onClick={darkModeHandler} /> : <ToggleOffIcon onClick={darkModeHandler} />;
 
   return (
     <Container>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import { dark } from '../../utils/constants/theme';
+import { light, dark } from '../../utils/constants/theme';
 
-const Theme = ({ children }) => <ThemeProvider theme={dark}>{children}</ThemeProvider>;
+const Theme = ({ isDarkModeOn, children }) => <ThemeProvider theme={isDarkModeOn ? dark : light}>{children}</ThemeProvider>;
 
 export default Theme;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import HomePage from '../../pages/Home';
 import Header from '../Header';
@@ -7,13 +7,22 @@ import Theme from '../Theme';
 
 import GlobalStyle from '../../utils/styled/global';
 
+import mockData from '../../assets/mock/videolist.mock.json';
+
 const App = () => {
+  const [ videoList, setVideoList ] = useState(mockData.items);
+  const [ isDarkModeOn, setIsDarkModeOn ] = useState(true);
+
+  const searchVideoList = (video) => setVideoList(video);
+
+  const toggleDarkMode = () => setIsDarkModeOn(!isDarkModeOn);
+
   return (
-    <Theme>
+    <Theme isDarkModeOn={isDarkModeOn}>
       <GlobalStyle />
-      <Header />
+      <Header searchVideoList={searchVideoList} isDarkModeOn={isDarkModeOn} toggleDarkMode={toggleDarkMode} />
       <Layout>
-        <HomePage />
+        <HomePage data={videoList} />
       </Layout>
     </Theme>
   );

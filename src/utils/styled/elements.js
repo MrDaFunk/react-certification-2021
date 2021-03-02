@@ -14,6 +14,7 @@ const Input = styled.input`
   height: 19px;
   border: solid 1px black;
   width: -webkit-fill-available;
+  padding-left: 10px;
 
   &:focus {
     border: solid 1px ${({ theme: { accentColor } }) => accentColor};

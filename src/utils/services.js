@@ -1,3 +1,17 @@
-const searchVideo = query => fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&videoCaption=closedCaption&maxResults=25&key=AIzaSyBdllPS54DvK1SyqQRGQZEOGW0LvkyLgCA`).then(response => response.json());
+import { path, key } from './constants/api';
 
-export { searchVideo };
+const searchPath = `${path}search?part=snippet&type=video`;
+
+const searchVideoList = async (query) =>
+  fetch(
+    `${searchPath}&maxResults=24&q=${encodeURIComponent(
+      query
+    )}&key=${key}&videoCaption=closedCaption`
+  );
+
+const searchRelatedVideoList = async (id) =>
+  fetch(`${searchPath}&maxResults=16&relatedToVideoId=${id}&key=${key}`);
+
+const searchVideo = async (id) => fetch(`${path}videos?part=snippet&id=${id}&key=${key}`);
+
+export { searchVideoList, searchVideo, searchRelatedVideoList };

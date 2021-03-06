@@ -7,12 +7,13 @@ const Card = styled.div`
   transition: ${transitionSlow};
   color: ${({ theme: { color } }) => color};
   display: flex;
-  width: 25%;
+  width: ${({ isInModal }) => (isInModal ? '100%' : '25%')};
   background-image: url(${({ image }) => image});
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: center;
   filter: grayscale(100%);
-  height: 250px;
+  height: ${({ isInModal }) => (isInModal ? '150px' : '250px')};
   cursor: pointer;
   position: relative;
 
@@ -21,11 +22,11 @@ const Card = styled.div`
   }
 
   @media screen and (max-width: ${lg}) {
-    width: 33.33%;
+    width: ${({ isInModal }) => (isInModal ? '100%' : '33.33%')};
   }
 
   @media screen and (max-width: ${md}) {
-    width: 50%;
+    width: ${({ isInModal }) => (isInModal ? '100%' : '50%')};
     filter: none;
   }
 
@@ -48,9 +49,13 @@ const Title = styled.h4`
   margin-bottom: 0;
 `;
 
-const Subtitle = styled.p`
+const Description = styled.p`
   font-size: 12px;
   color: ${({ theme: { grayColor } }) => grayColor};
+  text-overflow: ${({ isInModal }) => (isInModal ? 'ellipsis' : 'unset')};
+  height: ${({ isInModal }) => (isInModal ? '20px' : 'auto')};
+  overflow: ${({ isInModal }) => (isInModal ? 'hidden' : 'unset')};
+  white-space: ${({ isInModal }) => (isInModal ? 'nowrap' : 'unset')};
 `;
 
-export { Card, Header, Title, Subtitle };
+export { Card, Header, Title, Description };

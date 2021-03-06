@@ -7,16 +7,23 @@ import SidebarToggle from '../SidebarToggle';
 import LoginToggle from '../LoginToggle';
 import Search from '../Search';
 
-const Header = ({ searchVideoList, isDarkModeOn, toggleDarkMode }) =>
+const Header = ({
+  searchVideoList,
+  isDarkModeOn,
+  toggleDarkMode,
+  setIsLoading,
+  toggleLogInModal,
+}) => (
   <Nav>
     <LeftSide>
       <SidebarToggle />
-      <Search searchVideoList={searchVideoList} />
+      <Search setVideoList={searchVideoList} setIsLoading={setIsLoading} />
     </LeftSide>
     <RightSide>
       <DarkModeToggle isDarkModeOn={isDarkModeOn} toggleDarkMode={toggleDarkMode} />
-      <LoginToggle />
+      <LoginToggle toggleLogInModal={toggleLogInModal} />
     </RightSide>
-  </Nav>;
+  </Nav>
+);
 
 export default Header;

@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 
+import { sm } from '../../utils/constants/responsive-sizes';
+
 import { Bars } from '../../utils/styled/icons';
 
 const BarsIcon = styled(Bars)`
-  margin: 0 2em;
+  margin-left: 2em;
+  display: none;
+
+  @media screen and (max-width: ${sm}) {
+    display: block;
+  }
 `;
 
 export { BarsIcon };

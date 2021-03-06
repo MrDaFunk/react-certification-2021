@@ -10,8 +10,14 @@ const iconEffects = `
 `;
 
 const Container = styled(AlignMiddle)`
+  cursor: pointer;
+
   @media screen and (max-width: ${sm}) {
     display: none;
+  }
+
+  &:hover {
+    color: ${({ theme: { hoverColor } }) => hoverColor};
   }
 `;
 

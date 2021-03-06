@@ -1,14 +1,17 @@
 import React from 'react';
 
-import { UserIcon } from './LoginToggle.styled';
+import { Text, UserIcon } from './LoginToggle.styled';
 
 import { A } from '../../utils/styled/elements';
 
-const LoginToggle = () => {
+const LoginToggle = ({ toggleLogInModal }) => {
+  // eslint-disable-next-line no-unused-vars
+  const displayShowLogInModal = (event) => toggleLogInModal();
+
   return (
-    <A href="#">
+    <A href="#" onClick={displayShowLogInModal}>
       <UserIcon />
-      Iniciar Sesion
+      <Text>Iniciar Sesion</Text>
     </A>
   );
 };

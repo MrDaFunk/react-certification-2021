@@ -6,6 +6,10 @@ const A = styled.a`
   display: flex;
   text-decoration: none;
   color: ${({ theme: { color } }) => color};
+
+  &:hover {
+    color: ${({ theme: { hoverColor } }) => hoverColor};
+  }
 `;
 
 const Input = styled.input`
@@ -22,4 +26,18 @@ const Input = styled.input`
   }
 `;
 
-export { A, Input };
+const Button = styled.button`
+  border: none;
+  padding: 0.3em 0.7em;
+  border-radius: 15px;
+  background-color: ${({ theme: { accentColor } }) => accentColor};
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${({ theme: { accentHoverColor } }) => accentHoverColor};
+  }
+`;
+
+export { A, Input, Button };

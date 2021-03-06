@@ -1,3 +1,5 @@
 const safeHTML = (html) => ({ __html: html });
 
-export { safeHTML };
+const stopPropagation = (event) => event.stopPropagation();
+
+export { safeHTML, stopPropagation };

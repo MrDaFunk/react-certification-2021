@@ -4,24 +4,24 @@ import { SearchIcon } from './Search.styled';
 import { Input } from '../../utils/styled/elements';
 
 import { searchVideoList } from '../../utils/services';
-import { errorMessage } from '../../utils/constants/api';
+import { setFavoriteList } from '../../utils/fns';
 
-const Search = ({ setVideoList, setIsLoading }) => {
-  const searchHandler = async (event) => {
-    if (event.key === 'Enter' && event.target.value !== '') {
-      try {
-        setIsLoading(true);
-        const response = await searchVideoList(event.target.value);
-        if (!response.ok) {
-          throw Error(`${errorMessage} ${response.statusText}`);
-        }
+import { useDispatch } from '../Store';
+
+const Search = () => {
+  const dispatch = useDispatch();
+
+  const searchHandler = async ({ key, target: { value } }) => {
+    if (key === 'Enter' && value !== '') {
+      dispatch({ type: 'toggleIsLoading', payload: true });
+      const response = await searchVideoList(value);
+      if (response) {
         const { items } = await response.json();
-        setVideoList(items);
-        setIsLoading(false);
-      } catch (err) {
-        console.error(err);
-        setIsLoading(false);
+
+        const list = setFavoriteList(items);
+        dispatch({ type: 'setVideos', payload: list });
       }
+      dispatch({ type: 'toggleIsLoading', payload: false });
     }
   };
 

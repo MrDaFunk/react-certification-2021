@@ -2,15 +2,15 @@ import React from 'react';
 
 import { Container, ToggleOffIcon, ToggleOnIcon } from './DarkModeToggle.styled';
 
-const DarkModeToggle = ({ isDarkModeOn, toggleDarkMode }) => {
-  // eslint-disable-next-line no-unused-vars
-  const darkModeHandler = (event) => toggleDarkMode();
+import { useState, useDispatch } from '../Store';
 
-  const getIcon = () => (isDarkModeOn ? <ToggleOnIcon /> : <ToggleOffIcon />);
+const DarkModeToggle = () => {
+  const { isDarkmodeOn } = useState();
+  const dispatch = useDispatch();
 
   return (
-    <Container onClick={darkModeHandler}>
-      {getIcon()}
+    <Container onClick={() => dispatch({ type: 'toggleIsDarkmodeOn' })}>
+      {isDarkmodeOn ? <ToggleOnIcon /> : <ToggleOffIcon />}
       Dark Mode
     </Container>
   );

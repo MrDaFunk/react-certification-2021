@@ -4,43 +4,51 @@ import { Container } from './VideoList.styled';
 
 import Video from '../Video';
 
-const VideoList = ({ data, setIsLoading, setCurrentVideo, isInModal = false }) => (
-  <Container>
-    {data.length > 0 ? (
-      data.map(
-        ({
-          etag,
-          id: { videoId },
-          snippet: {
-            title,
-            description,
-            thumbnails: {
-              high: { url },
+import { useState } from '../Store';
+
+const VideoList = ({ data, isInModal = false }) => {
+  const { videos } = useState();
+  const videoList = data || videos;
+
+  return (
+    <Container>
+      {videoList.length > 0 ? (
+        videoList.map(
+          ({
+            etag,
+            id: { videoId },
+            snippet: {
+              title,
+              description,
+              thumbnails: {
+                high: { url },
+              },
+            } = {
+              title: '',
+              description: '',
+              thumbnails: { high: { url: '' } },
             },
-          } = {
-            title: '',
-            description: '',
-            thumbnails: { high: { url: '' } },
-          },
-        }) =>
-          videoId &&
-          title && (
-            <Video
-              isInModal={isInModal}
-              videoID={videoId}
-              key={etag}
-              src={url}
-              title={title}
-              description={description}
-              setIsLoading={setIsLoading}
-              setCurrentVideo={setCurrentVideo}
-            />
-          )
-      )
-    ) : (
-      <p>No se encontraron resultados</p>
-    )}
-  </Container>
-);
+            favorites = false,
+          }) =>
+            videoId &&
+            title && (
+              <Video
+                videoID={videoId}
+                key={etag}
+                etag={etag}
+                src={url}
+                title={title}
+                description={description}
+                favorites={favorites}
+                isInModal={isInModal}
+              />
+            )
+        )
+      ) : (
+        <p>No se encontraron resultados</p>
+      )}
+    </Container>
+  );
+};
 
 export default VideoList;

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { sm, md, lg } from '../../utils/constants/responsive-sizes';
 import { transitionSlow } from '../../utils/constants/styles';
 
+import { StarIcon } from '../../utils/styled/icons';
+
 const Card = styled.div`
   transition: ${transitionSlow};
   color: ${({ theme: { color } }) => color};
@@ -58,4 +60,19 @@ const Description = styled.p`
   white-space: ${({ isInModal }) => (isInModal ? 'nowrap' : 'unset')};
 `;
 
-export { Card, Header, Title, Description };
+const FavoriteIcon = styled(StarIcon)`
+  color: ${({ hover = false, active = false }) => {
+    if (active) {
+      return 'yellow';
+    }
+    return hover ? 'white' : 'transparent';
+  }};
+  display: ${({ hover }) => (hover ? 'inline' : 'none')};
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  padding: 0.5em;
+  filter: drop-shadow(2px 4px 6px black);
+`;
+
+export { Card, Header, Title, Description, FavoriteIcon };

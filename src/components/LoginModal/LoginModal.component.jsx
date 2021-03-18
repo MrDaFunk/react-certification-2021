@@ -14,9 +14,18 @@ import {
 import { stopPropagation } from '../../utils/fns';
 import { Input } from '../../utils/styled/elements';
 
-const LoginModal = ({ toggleLogInModal }) => {
+import { useState, useDispatch } from '../Store';
+
+const LoginModal = () => {
+  const { showLogInModal } = useState();
+  const dispatch = useDispatch();
+
   // eslint-disable-next-line no-unused-vars
-  const closeVideoHandler = (event) => toggleLogInModal();
+  const closeVideoHandler = (event) => dispatch({ type: 'toggleShowLogInModal' });
+
+  if (!showLogInModal) {
+    return null;
+  }
 
   return (
     <Container onClick={closeVideoHandler}>

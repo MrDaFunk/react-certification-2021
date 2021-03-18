@@ -1,8 +1,7 @@
 const storage = {
   get(key) {
     try {
-      const rawValue = window.localStorage.getItem(key);
-      return JSON.parse(rawValue);
+      return JSON.parse(window.localStorage.getItem(key));
     } catch (error) {
       console.error(`Error parsing storage item "${key}".`);
       return null;

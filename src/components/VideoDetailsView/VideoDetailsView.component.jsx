@@ -19,27 +19,26 @@ import { searchVideo, searchRelatedVideoList } from '../../utils/services';
 
 import { md } from '../../utils/constants/responsive-sizes';
 
-import { errorMessage } from '../../utils/constants/api';
+import { useState as useStoreState, useDispatch } from '../Store';
 
-const VideoDetailsView = ({ isLoading, setIsLoading, currentVideo, setCurrentVideo }) => {
+const VideoDetailsView = () => {
+  const { isLoading, current } = useStoreState();
+  const dispatch = useDispatch();
   const compareWindowSize = () => window.innerWidth <= md.replace('px', '');
 
-  const videoPath = `https://youtube.com/embed/${currentVideo}?autoplay=1&origin=http://localhost:3000`;
+  const videoPath = `https://youtube.com/embed/${current}?autoplay=1&origin=http://localhost:3000`;
   const [isMobile, setIsMobile] = useState(compareWindowSize());
   const [currentTitle, setCurrentTitle] = useState('');
   const [currentDescription, setCurrentDescription] = useState('');
   const [videos, setVideos] = useState([]);
 
   // eslint-disable-next-line no-unused-vars
-  const closeVideoHandler = (event) => setCurrentVideo('');
+  const closeVideoHandler = (event) => dispatch({ type: 'setCurrent', payload: '' });
 
   useEffect(() => {
     const getDetails = async () => {
-      try {
-        const response = await searchVideo(currentVideo);
-        if (!response.ok) {
-          throw Error(`${errorMessage} ${response.statusText}`);
-        }
+      const response = await searchVideo(current);
+      if (response) {
         const {
           items: [
             {
@@ -49,33 +48,30 @@ const VideoDetailsView = ({ isLoading, setIsLoading, currentVideo, setCurrentVid
         } = await response.json();
         setCurrentTitle(title);
         setCurrentDescription(description);
-      } catch (err) {
-        console.error(err);
       }
-
-      if (!isMobile) {
-        try {
-          const response = await searchRelatedVideoList(currentVideo);
-          if (!response.ok) {
-            throw Error(`${errorMessage} ${response.statusText}`);
-          }
-          const { items } = await response.json();
-          setVideos(items);
-        } catch (err) {
-          console.error(err);
-        }
+    };
+    const getRelatedVideos = async () => {
+      const response = await searchRelatedVideoList(current);
+      if (response) {
+        const { items } = await response.json();
+        setVideos(items);
       }
     };
 
     // eslint-disable-next-line no-unused-vars
     const resize = (event) => setIsMobile(compareWindowSize());
 
-    window.addEventListener('resize', resize);
-    getDetails();
-    return () => window.removeEventListener('resize', resize);
-  }, [currentVideo, isMobile]);
+    if (current !== '') {
+      window.addEventListener('resize', resize);
 
-  if (isLoading || currentVideo === '') {
+      getDetails();
+      getRelatedVideos();
+    }
+
+    return () => window.removeEventListener('resize', resize);
+  }, [current, isMobile]);
+
+  if (isLoading || current === '') {
     return null;
   }
 
@@ -91,12 +87,7 @@ const VideoDetailsView = ({ isLoading, setIsLoading, currentVideo, setCurrentVid
         <Suggestions>
           <RightTitle>Videos Sugeridos</RightTitle>
           <RightSection>
-            <VideoList
-              data={videos}
-              setIsLoading={setIsLoading}
-              setCurrentVideo={setCurrentVideo}
-              isInModal
-            />
+            <VideoList data={videos} isInModal />
           </RightSection>
         </Suggestions>
       </Card>

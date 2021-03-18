@@ -8,6 +8,7 @@ import {
   FaKey,
   FaBars,
   FaSpinner,
+  FaStar,
 } from 'react-icons/fa';
 
 const iconEffects = `
@@ -55,4 +56,8 @@ const Spinner = styled(FaSpinner)`
   }
 `;
 
-export { ToggleOff, ToggleOn, Search, User, Key, Bars, Spinner };
+const StarIcon = styled(FaStar)`
+  ${iconEffects}
+`;
+
+export { ToggleOff, ToggleOn, Search, User, Key, Bars, Spinner, StarIcon };

@@ -1,14 +1,24 @@
 import React from 'react';
+import { Router } from 'react-router-dom';
 
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createMemoryHistory } from 'history';
 
 import Video from './Video.component';
 import VideoDetailsView from '../VideoDetailsView';
 
-import { Store } from '../Store';
+import State from '../State';
+
+const history = createMemoryHistory();
 
 const customRender = (children, providerProps) =>
-  render(<Store {...providerProps}>{children}</Store>);
+  render(
+    <Router history={history}>
+      <State {...providerProps}>{children}</State>
+    </Router>
+  );
 
 const props = {
   isLoading: false,
@@ -16,6 +26,7 @@ const props = {
   isDarkmodeOn: true,
   current: '',
   showLogInModal: false,
+  isAuth: false,
 };
 
 const videoInfo = {
@@ -30,8 +41,9 @@ describe('Video Component Testing', () => {
   it('selects no element using an empty array', () => {
     const { src, title, description, videoID } = videoInfo;
 
-    const { getByText } = render(
-      <Video videoID={videoID} src={src} title={title} description={description} />
+    const { getByText } = customRender(
+      <Video videoID={videoID} src={src} title={title} description={description} />,
+      props
     );
 
     expect(getByText(title.replace('&#39;', "'"))).toBeInTheDocument();

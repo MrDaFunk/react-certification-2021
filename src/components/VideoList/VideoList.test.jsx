@@ -1,15 +1,25 @@
 import React from 'react';
+import { Router } from 'react-router-dom';
 
 import { render, screen } from '@testing-library/react';
+
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { createMemoryHistory } from 'history';
 
 import VideoList from './VideoList.component';
 
 import { items } from '../../assets/mock/videolist.mock.json';
 
-import { Store } from '../Store';
+import State from '../State';
+
+const history = createMemoryHistory();
 
 const customRender = (children, providerProps) =>
-  render(<Store {...providerProps}>{children}</Store>);
+  render(
+    <Router history={history}>
+      <State {...providerProps}>{children}</State>
+    </Router>
+  );
 
 const props = {
   isLoading: false,
@@ -17,6 +27,7 @@ const props = {
   isDarkmodeOn: true,
   current: '',
   showLogInModal: false,
+  isAuth: false,
 };
 
 describe('VideoList Component Testing', () => {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Container, ToggleOffIcon, ToggleOnIcon } from './DarkModeToggle.styled';
 
-import { useState, useDispatch } from '../Store';
+import { useState, useDispatch } from '../State';
 
 const DarkModeToggle = () => {
   const { isDarkmodeOn } = useState();

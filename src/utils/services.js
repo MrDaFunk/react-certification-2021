@@ -45,9 +45,49 @@ const getFavorite = async () =>
     })
   );
 
+const login = async ({ username, password }) =>
+  call(
+    await new Promise((resolve) => {
+      setTimeout(
+        () =>
+          resolve({
+            ok: true,
+            statusText: '',
+            json: () => ({
+              success: username === 'wizeline' && password === 'Rocks!',
+              message:
+                username === 'wizeline' && password === 'Rocks!'
+                  ? 'esta usted Autenticado'
+                  : 'Combinacion de llaves incorrecta',
+            }),
+          }),
+        500
+      );
+    })
+  );
+
+const logout = async () =>
+  call(
+    await new Promise((resolve) => {
+      setTimeout(
+        () =>
+          resolve({
+            ok: true,
+            statusText: '',
+            json: () => ({
+              success: true,
+            }),
+          }),
+        500
+      );
+    })
+  );
+
 export {
   searchVideoList,
   searchVideo,
   searchRelatedVideoList,
   getFavorite as getFavoriteList,
+  login,
+  logout,
 };

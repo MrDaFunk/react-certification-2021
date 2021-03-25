@@ -38,7 +38,7 @@ const Title = styled.p`
   text-align: center;
 `;
 
-const Body = styled.div`
+const Body = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,4 +58,10 @@ const SubmitButton = styled(Button)`
   margin-top: 1em;
 `;
 
-export { Container, Card, Title, Body, Block, UserIcon, KeyIcon, SubmitButton };
+const Error = styled.p`
+  color: red;
+  text-align: center;
+  margin-bottom: 0;
+`;
+
+export { Container, Card, Title, Body, Block, UserIcon, KeyIcon, SubmitButton, Error };

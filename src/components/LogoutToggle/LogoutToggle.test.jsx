@@ -5,8 +5,8 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { createMemoryHistory } from 'history';
-import LoginToggle from './LoginToggle.component';
-import LoginView from '../LoginView';
+
+import LogoutToggle from './LogoutToggle.component';
 
 import State from '../State';
 
@@ -25,40 +25,32 @@ const props = {
   isDarkmodeOn: true,
   current: '',
   showLogInModal: false,
-  isAuth: false,
+  hasAuth: false,
 };
 
-describe('LoginToggle Component Testing', () => {
+describe('LogoutToggle Component Testing', () => {
   it('not selects an element with the default state values', () => {
-    customRender(<LoginToggle />, props);
+    customRender(<LogoutToggle />, props);
 
-    expect(screen.queryByText('Iniciar Sesion')).toBeInTheDocument();
+    expect(screen.queryByText('Cerrar Sesion')).not.toBeInTheDocument();
   });
 
   it('selects an element using the text content', () => {
-    customRender(<LoginToggle />, { ...props, isAuth: true });
+    customRender(<LogoutToggle />, { ...props, hasAuth: true });
 
-    waitFor(
-      () => expect(screen.queryByText('Iniciar Sesion')).not.toBeInTheDocument(),
-      200
-    );
+    expect(screen.queryByText('Cerrar Sesion')).toBeInTheDocument();
   });
 
-  it('validate the click handler on the element and show the modal', () => {
-    customRender(
-      <>
-        <LoginToggle />
-        <LoginView />
-      </>,
-      props
-    );
+  it('validate the click handler on the element', () => {
+    customRender(<LogoutToggle />, { ...props, hasAuth: true });
 
-    const node = screen.queryByText('Iniciar Sesion');
+    const node = screen.queryByText('Cerrar Sesion');
 
     fireEvent.click(node);
 
-    waitFor(() => expect(screen.findByRole('login-modal')).toBeInDocument(), {
-      timeout: 200,
-    });
+    waitFor(
+      () => expect(screen.queryByText('Cerrar Sesion')).not.toBeInTheDocument(),
+      200
+    );
   });
 });

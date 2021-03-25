@@ -4,10 +4,10 @@ import { render } from '@testing-library/react';
 
 import VideoDetailsView from './VideoDetailsView.component';
 
-import { Store } from '../Store';
+import State from '../State';
 
 const customRender = (children, providerProps) =>
-  render(<Store {...providerProps}>{children}</Store>);
+  render(<State {...providerProps}>{children}</State>);
 
 const props = {
   isLoading: false,

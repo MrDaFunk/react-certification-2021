@@ -1,29 +1,28 @@
 import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-import HomePage from '../../pages/Home';
 import Header from '../Header';
 import Layout from '../Layout';
 import Loading from '../Loading';
 import Theme from '../Theme';
-import VideoDetailsView from '../VideoDetailsView';
-import LoginModal from '../LoginModal';
-import { Store } from '../Store';
+import Routes from '../Routes';
+import State from '../State';
 
 import GlobalStyle from '../../utils/styled/global';
 
 const App = () => (
-  <Store>
+  <State>
     <Theme>
-      <GlobalStyle />
-      <Header />
-      <Layout>
-        <Loading />
-        <HomePage />
-      </Layout>
-      <VideoDetailsView />
-      <LoginModal />
+      <Router>
+        <GlobalStyle />
+        <Header />
+        <Layout>
+          <Routes />
+          <Loading />
+        </Layout>
+      </Router>
     </Theme>
-  </Store>
+  </State>
 );
 
 export default App;

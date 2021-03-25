@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Container = styled.div`
+  top: 50px;
   position: fixed;
   z-index: 3;
   width: 100%;

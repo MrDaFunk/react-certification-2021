@@ -5,6 +5,7 @@ import { Nav, LeftSide, RightSide } from './Header.styled';
 import DarkModeToggle from '../DarkModeToggle';
 import SidebarToggle from '../SidebarToggle';
 import LoginToggle from '../LoginToggle';
+import LogoutToggle from '../LogoutToggle';
 import Search from '../Search';
 import FavoritesToggle from '../FavoritesToggle';
 
@@ -17,6 +18,7 @@ const Header = () => (
     <RightSide>
       <DarkModeToggle />
       <FavoritesToggle />
+      <LogoutToggle />
       <LoginToggle />
     </RightSide>
   </Nav>

@@ -1,26 +1,21 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { Container, FavoriteIcon } from './FavoritesToggle.styled';
 
-import { getFavoriteList } from '../../utils/services';
-
-import { useDispatch } from '../Store';
+import { useState } from '../State';
 
 const FavoritesToggle = () => {
-  const dispatch = useDispatch();
-  // eslint-disable-next-line no-unused-vars
-  const favoritesHandler = async (event) => {
-    dispatch({ type: 'toggleIsLoading', payload: true });
-    const response = await getFavoriteList();
-    if (response) {
-      const { items } = await response.json();
-      dispatch({ type: 'setVideos', payload: items });
-    }
-    dispatch({ type: 'toggleIsLoading', payload: false });
-  };
+  const history = useHistory();
+  const { hasAuth } = useState();
+
+  if (!hasAuth) {
+    return null;
+  }
 
   return (
-    <Container onClick={favoritesHandler}>
+    // eslint-disable-next-line jsx-a11y/aria-role
+    <Container role="favorite-toggle" onClick={() => history.push('/favorites')}>
       <FavoriteIcon />
       Favorites
     </Container>

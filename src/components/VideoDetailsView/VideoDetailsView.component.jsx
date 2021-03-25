@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import {
   Suggestions,
@@ -19,9 +20,10 @@ import { searchVideo, searchRelatedVideoList } from '../../utils/services';
 
 import { md } from '../../utils/constants/responsive-sizes';
 
-import { useState as useStoreState, useDispatch } from '../Store';
+import { useState as useStoreState, useDispatch } from '../State';
 
 const VideoDetailsView = () => {
+  const history = useHistory();
   const { isLoading, current } = useStoreState();
   const dispatch = useDispatch();
   const compareWindowSize = () => window.innerWidth <= md.replace('px', '');
@@ -33,7 +35,10 @@ const VideoDetailsView = () => {
   const [videos, setVideos] = useState([]);
 
   // eslint-disable-next-line no-unused-vars
-  const closeVideoHandler = (event) => dispatch({ type: 'setCurrent', payload: '' });
+  const closeVideoHandler = (event) => {
+    history.push('/');
+    dispatch({ type: 'setCurrent', payload: '' });
+  };
 
   useEffect(() => {
     const getDetails = async () => {

@@ -3,7 +3,7 @@ import { ThemeProvider } from 'styled-components';
 
 import { light, dark } from '../../utils/constants/theme';
 
-import { useState } from '../Store';
+import { useState } from '../State';
 
 const Theme = ({ children }) => {
   const { isDarkmodeOn } = useState();

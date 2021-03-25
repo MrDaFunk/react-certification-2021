@@ -4,10 +4,10 @@ import { render, fireEvent } from '@testing-library/react';
 
 import DarkModeToggle from './DarkModeToggle.component';
 
-import { Store } from '../Store';
+import State from '../State';
 
 const customRender = (children, providerProps) =>
-  render(<Store {...providerProps}>{children}</Store>);
+  render(<State {...providerProps}>{children}</State>);
 
 const props = {
   isLoading: false,

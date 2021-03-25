@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 import { transitionSlow } from '../constants/styles';
 
-const A = styled.a`
+const A = styled.span`
+  cursor: pointer;
   display: flex;
   text-decoration: none;
   color: ${({ theme: { color } }) => color};

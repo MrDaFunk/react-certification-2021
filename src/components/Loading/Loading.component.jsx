@@ -3,7 +3,7 @@ import { Container } from './Loading.styled';
 
 import { Spinner } from '../../utils/styled/icons';
 
-import { useState } from '../Store';
+import { useState } from '../State';
 
 const Loading = () => {
   const { isLoading } = useState();

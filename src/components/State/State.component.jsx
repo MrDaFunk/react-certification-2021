@@ -11,38 +11,27 @@ const initialState = {
   isDarkmodeOn: storage.get('isDarkModeOn') ?? true,
   current: '',
   showLogInModal: false,
+  hasAuth: storage.get('token') ?? false,
 };
 
-const reducer = (
-  { isLoading, videos, isDarkmodeOn, current, showLogInModal },
-  { type, payload }
-) => {
+const reducer = (props, { type, payload }) => {
+  const { isLoading, isDarkmodeOn, showLogInModal } = props;
   switch (type) {
     case 'toggleIsLoading':
-      return {
-        isLoading: payload || !isLoading,
-        videos,
-        isDarkmodeOn,
-        current,
-        showLogInModal,
-      };
+      return { ...props, isLoading: payload || !isLoading };
     case 'toggleIsDarkmodeOn':
       storage.set('isDarkModeOn', !isDarkmodeOn);
-      return { isDarkmodeOn: !isDarkmodeOn, videos, isLoading, current, showLogInModal };
+      return { ...props, isDarkmodeOn: !isDarkmodeOn };
     case 'setVideos':
-      return { videos: payload, isLoading, isDarkmodeOn, current, showLogInModal };
+      return { ...props, videos: payload };
     case 'setCurrent':
-      return { current: payload, isLoading, isDarkmodeOn, videos, showLogInModal };
+      return { ...props, current: payload };
     case 'toggleShowLogInModal':
-      return {
-        showLogInModal: payload || !showLogInModal,
-        isLoading,
-        isDarkmodeOn,
-        videos,
-        current,
-      };
+      return { ...props, showLogInModal: payload || !showLogInModal };
+    case 'setAuth':
+      return { ...props, hasAuth: payload };
     default:
-      throw new Error();
+      throw new Error(`Unkown action type: '${type}'`);
   }
 };
 
@@ -52,13 +41,14 @@ const DispatchContext = createContext();
 const useState = () => useContext(StateContext);
 const useDispatch = () => useContext(DispatchContext);
 
-const Store = ({
+const State = ({
   children,
   isLoading,
   videos,
   isDarkmodeOn,
   current,
   showLogInModal,
+  hasAuth,
 }) => {
   const list = setFavoriteList(items);
 
@@ -69,6 +59,7 @@ const Store = ({
   initialState.isDarkmodeOn = isDarkmodeOn ?? initialState.isDarkmodeOn;
   initialState.current = current ?? initialState.current;
   initialState.showLogInModal = showLogInModal ?? initialState.showLogInModal;
+  initialState.hasAuth = hasAuth ?? initialState.hasAuth;
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -79,4 +70,4 @@ const Store = ({
   );
 };
 
-export { Store, useState, useDispatch };
+export { State as default, useState, useDispatch };

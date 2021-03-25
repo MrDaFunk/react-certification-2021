@@ -1,9 +1,7 @@
 import React from 'react';
 
-import './Layout.styles.css';
+import { Container } from './Layout.styled';
 
-function Layout({ children }) {
-  return <main className="container">{children}</main>;
-}
+const Layout = ({ children }) => <Container>{children}</Container>;
 
 export default Layout;
